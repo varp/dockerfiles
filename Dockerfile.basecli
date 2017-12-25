@@ -1,0 +1,22 @@
+FROM ubuntu:latest
+LABEL maintainer="vardan.pogosyan@gmail.com"
+LABEL image="ubuntu" layer="basecli"
+LABEL target="dev"
+
+
+ENV DEBIAN_FRONTEND noninteractive
+
+
+RUN apt-get update -y -q && apt-get upgrade -y -q
+RUN mkdir -p /var/lib/resolvconf && :> /var/lib/resolvconf/linkified
+RUN echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections
+RUN apt-get install -y -q apt-utils resolvconf
+RUN apt-get install -y -q ubuntu-minimal wget curl tzdata
+RUN apt-get install -y -q python3 python3-pip python-software-properties software-properties-common
+RUN apt-get install -y -q language-pack-en language-pack-ru
+RUN apt-get install -y -q apparmor
+RUN apt-get install -y -q git
+
+RUN locale-gen 'ru_RU.UTF-8' && update-locale LC_ALL='ru_RU.UTF-8' && dpkg-reconfigure locales
+RUN echo "Europe/Moscow" > /etc/timezone && dpkg-reconfigure tzdata
+
