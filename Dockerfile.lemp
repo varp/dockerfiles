@@ -22,6 +22,16 @@ RUN apt-get update -y -q && apt-get upgrade -y -q
 
 RUN mkdir /run/php
 
+RUN sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+
+RUN sed -i 's/user = www-data/user = ubuntu/g' /etc/php/7.1/fpm/pool.d/www.conf && \
+sed -i 's/group = www-data/group = ubuntu/g' /etc/php/7.1/fpm/pool.d/www.conf && \
+sed -i 's/owner = www-data/owner = ubuntu/g' /etc/php/7.1/fpm/pool.d/www.conf 
+
+RUN sed -i 's/sendfile on/sendfile off/g' /etc/nginx/nginx.conf
+
+RUN sed -i 's/user www-data/user ubuntu/g' /etc/nginx/nginx.conf
+
 RUN service mysql restart 
 RUN service php7.1-fpm restart 
 RUN service nginx restart
