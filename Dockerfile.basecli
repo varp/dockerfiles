@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 LABEL maintainer="vardan.pogosyan@gmail.com"
-LABEL image="ubuntu" layer="basecli"
+LABEL repo="vardan/ubuntu" tag="basecli"
 LABEL target="dev"
 
 

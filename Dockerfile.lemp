@@ -1,7 +1,6 @@
 FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com"
-LABEL target="dev"
-LABEL project="yayurist"
+LABEL repo="vardan/ubuntu" tag="nginx-fpm-mysql"
 
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb -O /root/mysql-apt-config_0.8.9-1_all.deb
 RUN dpkg -i /root/mysql-apt-config_0.8.9-1_all.deb
