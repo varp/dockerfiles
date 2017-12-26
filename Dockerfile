@@ -19,6 +19,7 @@ RUN set -ex \
     resolvconf \
     ubuntu-minimal \
     python3 \
+    python3-pip \
     python-software-properties \
     software-properties-common \
     language-pack-en \
