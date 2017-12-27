@@ -12,8 +12,8 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
     LC_ALL=ru_RU.UTF-8 add-apt-repository ppa:ondrej/php -y && \
     add-apt-repository ppa:nginx/stable -y && \
     apt-get update -y -q; \
-    bash -c 'debconf-set-selections <<< "mysql-5.7 mysql-server/root_password password qwerty"'; \
-    bash -c 'debconf-set-selections <<< "mysql-5.7 mysql-server/root_password_again password qwerty"'; \
+    sh -c 'debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password qwerty"'; \
+    sh -c 'debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password qwerty"'; \
     apt-get install -y -q mysql-server \
     mysql-client \
     php7.1-zip \
