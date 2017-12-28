@@ -1,7 +1,6 @@
 FROM vardan/ubuntu:base
 LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="basecli"
-LABEL target="dev"
 
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -20,9 +19,10 @@ RUN set -ex \
     mc \
     vim-nox; \
     echo "ru_RU.UTF-8" > /etc/default/locale && \
-    update-locale LC='ru_RU.UTF-8' && \
+    update-locale LC_ALL='ru_RU.UTF-8' && \
     dpkg-reconfigure locales && \
     useradd -m -G adm,sudo -s /bin/bash ubuntu && \
+    echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     rm -rf /var/lib/apt/lists/*
 
 CMD "/bin/bash"

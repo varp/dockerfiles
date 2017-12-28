@@ -1,6 +1,6 @@
 FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com"
-LABEL repo="vardan/ubuntu" tag="nginx-fpm-mysql"
+LABEL repo="vardan/ubuntu" tag="lemp"
 
 COPY entrypoint.sh /
 
@@ -39,6 +39,8 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
     rm -rf /var/lib/apt/lists/*
 
 RUN chmod a+x /entrypoint.sh
+
+VOLUME /var/lib/mysql
 
 EXPOSE 80 
 EXPOSE 3306
