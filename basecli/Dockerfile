@@ -8,13 +8,15 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update 
 
 RUN set -ex \
-    apt-get update && apt-get install -y -q \
+    apt-get -qqy update && apt-get -qqy install \
     wget \
     curl \
     tzdata \
+    unzip \
     bash \
     bash-completion \
     language-pack-ru \
+    console-cyrillic \
     git \
     mc \
     vim-nox; \

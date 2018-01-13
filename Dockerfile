@@ -13,8 +13,8 @@ RUN set -ex \
     touch /var/lib/resolvconf/linkified; \
     echo "resolvconf resolvconf/linkify-resolvconf boolean false" \
     | debconf-set-selections; \
-    apt-get update -q && \
-    apt-get install -y -q \
+    apt-get -qqy update && \
+    apt-get -qqy install \
     apt-utils \
     resolvconf \
     ubuntu-minimal \
@@ -24,6 +24,7 @@ RUN set -ex \
     software-properties-common \
     language-pack-en \
     apparmor && \
+    pip3 --upgrade && \
     locale-gen 'ru_RU.UTF-8' && \
     update-locale LC_ALL='ru_RU.UTF-8' && \
     dpkg-reconfigure locales && \
