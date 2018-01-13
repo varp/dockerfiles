@@ -24,7 +24,7 @@ RUN set -ex \
     software-properties-common \
     language-pack-en \
     apparmor && \
-    pip3 --upgrade && \
+    pip3 install --upgrade pip && \
     locale-gen 'ru_RU.UTF-8' && \
     update-locale LC_ALL='ru_RU.UTF-8' && \
     dpkg-reconfigure locales && \
