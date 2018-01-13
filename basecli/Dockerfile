@@ -5,7 +5,7 @@ LABEL repo="vardan/ubuntu" tag="basecli"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update 
+RUN apt-get -qqy update 
 
 RUN set -ex \
     apt-get -qqy update && apt-get -qqy install \
