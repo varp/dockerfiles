@@ -20,6 +20,7 @@ RUN set -ex \
     git \
     mc \
     vim-nox; \
+    update-alternatives --install /bin/sh sh /bin/bash 100 && \
     echo "ru_RU.UTF-8" > /etc/default/locale && \
     update-locale LC_ALL='ru_RU.UTF-8' && \
     dpkg-reconfigure locales && \
