@@ -6,6 +6,7 @@ LABEL target="dev"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+USER root
 
 RUN mkdir -p /var/lib/resolvconf
 
@@ -34,4 +35,6 @@ RUN set -ex \
     echo "Europe/Moscow" > /etc/default/timezone && \
     rm -rf /var/lib/apt/lists/*
 
-CMD "/bin/bash"
+
+CMD ["/bin/bash"]
+

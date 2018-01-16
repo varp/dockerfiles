@@ -5,6 +5,8 @@ LABEL repo="vardan/ubuntu" tag="basecli"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+USER root
+
 RUN apt-get -qqy update 
 
 RUN set -ex \
@@ -28,5 +30,9 @@ RUN set -ex \
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     rm -rf /var/lib/apt/lists/*
 
-CMD "/bin/bash"
-ENTRYPOINT "/bin/bash"
+
+USER ubuntu
+
+CMD ["/bin/bash"]
+
+ENTRYPOINT ["/bin/bash"]

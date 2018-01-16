@@ -4,6 +4,8 @@ LABEL repo="vardan/ubuntu" tag="lemp"
 
 COPY entrypoint.sh /
 
+USER root
+
 RUN apt-get -qqy update 
 
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
@@ -40,9 +42,10 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
 
 RUN chmod a+x /entrypoint.sh
 
-
 EXPOSE 80 
 EXPOSE 3306
 
-CMD "/bin/bash"
+USER ubuntu
+
+CMD ["/bin/bash"]
 ENTRYPOINT ["/entrypoint.sh"]
