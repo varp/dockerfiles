@@ -42,6 +42,8 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
 
 RUN chmod a+x /entrypoint.sh
 
+VOLUME /var/lib/mysql
+
 EXPOSE 80 
 EXPOSE 3306
 
