@@ -47,7 +47,5 @@ VOLUME /var/lib/mysql
 EXPOSE 80 
 EXPOSE 3306
 
-USER ubuntu
-
 CMD ["/bin/bash"]
 ENTRYPOINT ["/entrypoint.sh"]

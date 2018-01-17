@@ -30,9 +30,6 @@ RUN set -ex \
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     rm -rf /var/lib/apt/lists/*
 
-
-USER ubuntu
-
 CMD ["/bin/bash"]
 
 ENTRYPOINT ["/bin/bash"]
