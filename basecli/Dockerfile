@@ -31,6 +31,4 @@ RUN set -ex \
     rm -rf /var/lib/apt/lists/*
 
 
-USER ubuntu
-
 CMD ["/bin/sh"]
