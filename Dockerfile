@@ -5,6 +5,7 @@ LABEL target="dev"
 
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV LC_ALL en_US.UTF-8
 
 USER root
 
@@ -26,15 +27,13 @@ RUN set -ex \
     language-pack-en \
     apparmor && \
     pip3 install --upgrade pip && \
-    locale-gen 'ru_RU.UTF-8' && \
-    update-locale LC_ALL='ru_RU.UTF-8' && \
+    locale-gen ru_RU.UTF-8 && \
+    update-locale LC_ALL=ru_RU.UTF-8 && \
     dpkg-reconfigure locales && \
     echo "Europe/Moscow" > /etc/timezone && \
     dpkg-reconfigure tzdata && \
-    echo "en_US.UTF-8" > /etc/default/locale && \
     echo "Europe/Moscow" > /etc/default/timezone && \
     rm -rf /var/lib/apt/lists/*
 
 
-CMD ["/bin/bash"]
-
+CMD ["/bin/sh"]

@@ -2,6 +2,8 @@ FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="lemp"
 
+ENV LC_ALL en_US.UTF-8
+
 COPY entrypoint.sh /
 
 USER root
@@ -11,7 +13,7 @@ RUN apt-get -qqy update
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
     -O /root/mysql-apt-config_0.8.9-1_all.deb && \
     dpkg -i /root/mysql-apt-config_0.8.9-1_all.deb; \
-    LC_ALL=ru_RU.UTF-8 add-apt-repository ppa:ondrej/php -y && \
+    LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y && \
     add-apt-repository ppa:nginx/stable -y && \
     apt-get -qqy update; \
     echo "mysql-community-server mysql-community-server/root-pass password qwerty" | debconf-set-selections; \
@@ -49,5 +51,4 @@ EXPOSE 3306
 
 USER ubuntu
 
-CMD ["/bin/bash"]
 ENTRYPOINT ["/entrypoint.sh"]

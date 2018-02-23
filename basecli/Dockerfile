@@ -4,6 +4,7 @@ LABEL repo="vardan/ubuntu" tag="basecli"
 
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV LC_ALL en_US.UTF-8
 
 USER root
 
@@ -23,8 +24,7 @@ RUN set -ex \
     mc \
     vim-nox; \
     update-alternatives --install /bin/sh sh /bin/bash 100 && \
-    echo "ru_RU.UTF-8" > /etc/default/locale && \
-    update-locale LC_ALL='ru_RU.UTF-8' && \
+    update-locale LC_ALL=ru_RU.UTF-8 && \
     dpkg-reconfigure locales && \
     useradd -m -G adm,sudo -s /bin/bash ubuntu && \
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers && \
@@ -33,6 +33,4 @@ RUN set -ex \
 
 USER ubuntu
 
-CMD ["/bin/bash"]
-
-ENTRYPOINT ["/bin/bash"]
+CMD ["/bin/sh"]
