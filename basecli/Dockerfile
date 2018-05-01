@@ -5,6 +5,7 @@ LABEL repo="vardan/ubuntu" tag="basecli" target="dev"
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEFAULT_LOCALE ru_RU.UTF-8
 
+
 USER root
 
 RUN apt-get -qqy update 
