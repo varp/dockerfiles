@@ -1,6 +1,6 @@
 FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com"
-LABEL repo="vardan/ubuntu" tag="lemp"
+LABEL repo="vardan/ubuntu" tag="lemp" target="dev"
 
 ENV LC_ALL en_US.UTF-8
 
