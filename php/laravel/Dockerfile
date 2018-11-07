@@ -1,6 +1,5 @@
 FROM php:7.1-fpm
-LABEL maintainer="vardan.pogosyan@gmail.com"
-LABEL project="laravel" target="dev" language="php" language="nodejs"
+LABEL maintainer="vardan.pogosyan@gmail.com" repo="vardan/ubuntu" project="laravel" target="dev" language="php" language="nodejs"
 
 
 ENV WORK_DIR=/var/www/html \
