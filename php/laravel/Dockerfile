@@ -21,7 +21,7 @@ RUN set -ex; \
     apt-transport-https \
     ca-certificates \
     locales; \
-    rm -rf /var/lib/apt/lists/*; \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
     sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen; \
@@ -39,7 +39,7 @@ RUN set -ex; \
     chsh -s /bin/bash; \
     mkdir /root/.bash_completions.d/ && touch /root/.bash_completions.d/empty; \
     echo 'for compl in /root/.bash_completions.d/*; do source "${compl}"; done' >> /root/.bashrc; \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN set -ex && \
     apt-get update && \
@@ -59,30 +59,30 @@ RUN set -ex && \
     libpng-dev \
     nasm \
     ; \
-    rm -rf /var/lib/apt/lists/* \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     ; \
     pecl channel-update pecl.php.net && \
     pecl install ${PHP_PECL_EXT} && \
     docker-php-ext-enable ${PHP_PECL_EXT}; \
     docker-php-ext-install ${PHP_EXT} \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd && docker-php-source delete; \
+    mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer; \
     echo "export COMPOSER_ALLOW_ROOT=true" >> /root/.bashrc; \
-    composer global require hirak/prestissimo -n
+    composer global require hirak/prestissimo -n && composer clear-cache
 
 # Install nodejs
 RUN set -eo pipefail; \
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash; \
     export NVM_DIR="$HOME/.nvm"; \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; \
-    nvm install node
+    nvm install node && nvm cache clear
 
 ADD conf/php.fpm.ini $PHP_INI_DIR/conf.d/php.fpm.ini
 ADD conf/phpfpm.conf $PHP_INI_DIR/php-fpm.d/www.conf
 
 WORKDIR /var/www/html
-
