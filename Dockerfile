@@ -3,7 +3,6 @@ LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="base" target="dev"
 
 
-
 ENV TZ Europe/Moscow
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEFAULT_LOCALE en_US.UTF-8
@@ -11,28 +10,21 @@ ENV DEFAULT_LANG ru_RU.UTF-8
 
 USER root
 
-
 ## Enable Ubuntu Universe, Multiverse, and deb-src for main.
-RUN set -ex \
+RUN set -ex; \
     sed -i -e 's/^#\s*\(deb.*main restricted\)$/\1/g' \
     -e 's/^#\s*\(deb.*universe\)$/\1/g' \
     -e 's/^#\s*\(deb.*multiverse\)$/\1/g' && \
-    apt-get update; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN set -ex \
-    ; \
     apt-get update && \
     apt-get -y install --no-install-recommends \
     apt-utils \
     debconf-utils \
     apt-transport-https \
     ca-certificates; \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-RUN set -ex \
-    ; \
+RUN set -ex; \
     mkdir -p /var/lib/resolvconf; \
     touch /var/lib/resolvconf/linkified; \
     echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections \
@@ -49,7 +41,7 @@ RUN set -ex \
         language-pack-en \
         apparmor \
         bash; \
-        rm -rf /var/lib/apt/lists/*; \
+        apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
         pip3 install --upgrade pip
 
 RUN set -ex; \

@@ -17,18 +17,19 @@ ADD debconf /debconf
 
 RUN set -ex; \
     apt-get -y update && apt-get -y install --no-install-recommends \
-        wget \
-        curl \
-        tzdata \
-        unzip \
-        p7zip \
-        bash-completion \
-        language-pack-ru \
-        console-cyrillic \
-        git \
-        mc \
-        vim-nox; \
-    rm -rf /var/lib/apt/lists/*
+    wget \
+    curl \
+    tzdata \
+    unzip \
+    p7zip \
+    bash-completion \
+    language-pack-ru \
+    console-cyrillic \
+    git \
+    mc \
+    vim-nox; \
+    echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN set -ex; \
     update-locale LANG=${DEFAULT_LOCALE}; \
@@ -36,6 +37,7 @@ RUN set -ex; \
     ; \
     useradd -m -G adm,sudo -s /bin/bash ubuntu; \
     cp -f /etc/skel/.bashrc /home/ubuntu/; \
+    cp -f /root/.vimrc /home/ubuntu/; \
     echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER ubuntu
