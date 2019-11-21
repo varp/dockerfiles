@@ -21,8 +21,8 @@ RUN set -ex \
   debconf-utils \
   apt-transport-https \
   ca-certificates; \
-  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ;
-
+  apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
+  
 
 RUN set -ex \
   ; \
@@ -42,7 +42,7 @@ RUN set -ex \
   language-pack-en \
   apparmor \
   bash; \
-  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
+  apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*; \
   pip3 install --upgrade pip
 
 RUN set -ex; \
@@ -55,7 +55,7 @@ RUN set -ex; \
 
 RUN set -ex; \
   apt-get update; apt-get upgrade -y; apt-get autoremove -y; \
-  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 
 RUN set -eux; \
   locale-gen ${DEFAULT_LANG} ${DEFAULT_LOCALE}; \

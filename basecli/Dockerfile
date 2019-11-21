@@ -29,12 +29,12 @@ RUN set -ex; \
   mc \
   vim-nox; \
   echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
-  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 
 
 RUN set -ex; \
   apt-get update; apt-get upgrade -y; apt-get autoremove -y; \
-  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 
 
 
