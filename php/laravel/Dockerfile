@@ -21,6 +21,7 @@ RUN set -ex; \
     apt-transport-https \
     ca-certificates \
     locales; \
+    echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
     sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \

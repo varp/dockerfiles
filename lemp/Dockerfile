@@ -8,7 +8,7 @@ COPY entrypoint.sh /
 
 USER root
 
-RUN apt-get -qy update 
+RUN apt-get -qy update
 
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
     -O /root/mysql-apt-config_0.8.9-1_all.deb && \
@@ -38,16 +38,13 @@ RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb \
     sed -i 's/sendfile on/sendfile off/g' /etc/nginx/nginx.conf && \
     sed -i 's/user www-data/user ubuntu/g' /etc/nginx/nginx.conf && \
     apt-get -qy autoremove && \
-    apt-get clean && \
-    rm -rf /tmp/* /var/tmp/* && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-    
 RUN chmod a+x /entrypoint.sh
 
 VOLUME /var/lib/mysql
 
-EXPOSE 80 
+EXPOSE 80
 EXPOSE 3306
 
 ENTRYPOINT ["/entrypoint.sh"]

@@ -3,14 +3,12 @@ LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="base" target="dev"
 
 
-
 ENV TZ Europe/Moscow
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEFAULT_LOCALE en_US.UTF-8
 ENV DEFAULT_LANG ru_RU.UTF-8
 
 USER root
-
 
 ## Enable Ubuntu Universe, Multiverse, and deb-src for main.
 RUN set -ex \
@@ -23,7 +21,7 @@ RUN set -ex \
   debconf-utils \
   apt-transport-https \
   ca-certificates; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ;
 
 
 RUN set -ex \
@@ -44,7 +42,7 @@ RUN set -ex \
   language-pack-en \
   apparmor \
   bash; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*; \
+  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
   pip3 install --upgrade pip
 
 RUN set -ex; \
@@ -57,7 +55,7 @@ RUN set -ex; \
 
 RUN set -ex; \
   apt-get update; apt-get upgrade -y; apt-get autoremove -y; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN set -eux; \
   locale-gen ${DEFAULT_LANG} ${DEFAULT_LOCALE}; \

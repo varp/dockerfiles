@@ -16,7 +16,7 @@ USER root
 ADD debconf /debconf
 
 RUN set -ex; \
-  apt-get update; apt-get -y install --no-install-recommends \
+  apt-get -y update && apt-get -y install --no-install-recommends \
   wget \
   curl \
   tzdata \
@@ -28,12 +28,14 @@ RUN set -ex; \
   git \
   mc \
   vim-nox; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
+  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
 RUN set -ex; \
   apt-get update; apt-get upgrade -y; apt-get autoremove -y; \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+  apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 
 RUN set -ex; \
