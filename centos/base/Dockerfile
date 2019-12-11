@@ -10,11 +10,10 @@ USER root
 
 RUN set -ex \
   ; \
-  yum -y update && yum -y upgrade && \
-  yum -y install epel-release glibc-langpack-en glibc-langpack-ru && \
+  yum -y update && \
+  yum -y install epel-release; yum repolist;  \
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm; \
-  yum -y clean all; \
-  rm -rf /var/lib/rpm/* /var/lib/yum/* /var/cache/yum/*
+  yum repolist; yum -y clean all
 
 
 RUN set -ex; \
