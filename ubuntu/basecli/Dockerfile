@@ -2,18 +2,8 @@ FROM vardan/ubuntu:base
 LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="basecli" target="dev"
 
-ENV DEBIAN_FRONTEND noninteractive
-
-ENV DEFAULT_LOCALE ru_RU.UTF-8
-
-ENV LC_ALL ${DEFAULT_LOCALE}
-ENV LANG ${DEFAULT_LOCALE}
-ENV LANGUAGE ${DEFAULT_LOCALE}
-
 
 USER root
-
-ADD debconf /debconf
 
 RUN set -ex; \
   apt-get -y update && apt-get -y install --no-install-recommends \
@@ -26,7 +16,7 @@ RUN set -ex; \
   language-pack-ru \
   console-cyrillic \
   git \
-  mc \
+  git-lfs \
   vim-nox; \
   echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
   apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*

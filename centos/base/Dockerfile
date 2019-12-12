@@ -25,7 +25,7 @@ RUN set -ex; \
   unlink /etc/localtime; ln -sv "../usr/share/zoneinfo/${TZ}" "/etc/localtime"
 
 ENV LC_ALL ${DEFAULT_LOCALE}
-ENV LC_COLLATE ${DEFAULT_LOCALE}}
+ENV LC_COLLATE ${DEFAULT_LOCALE}
 ENV LANG ${DEFAULT_LANG}
 
 
