@@ -8,23 +8,26 @@ ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_EXT fpm intl mbstring mcrypt mysql pgsql sqlite3 zip opcache xml yaml zip curl http gmagick imagick \
    xdebug redis memcache
 
-RUN set -ex && \
-    apt-get update && \
-    apt-get install --no-install-recommends -y \
-    libicu-dev \
-    libpq-dev \
-    libpq5 \
-    libmcrypt-dev \
-    zlib1g-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libyaml-dev \
-    libxml2-dev \
-    libpng-dev \
-    $(echo ${PHP_EXT} | awk 'BEGIN {RS=" "} { printf "php${PHP_VERSION}-" $1; }') \
+RUN set -ex \
    ; \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+   apt-get update && \
+   apt-get install --no-install-recommends -y \
+   libicu-dev \
+   libpq-dev \
+   libpq5 \
+   libmcrypt-dev \
+   zlib1g-dev \
+   libfreetype6-dev \
+   libjpeg62-turbo-dev \
+   libyaml-dev \
+   libxml2-dev \
+   libpng-dev \
+   $(echo ${PHP_EXT} | awk 'BEGIN {RS=" "} { printf "php${PHP_VERSION}-" $1; }') \
+   ; \
+   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
+
+ENV COMPOSER_ALLOW_ROOT true
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer; \

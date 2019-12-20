@@ -1,0 +1,30 @@
+version: '3'
+
+services: 
+  centos-base:
+    image: vardan/centos:base
+    build: 
+      context: ./centos/base
+
+  centos-basecli:
+    image: vardan/centos:basecli
+    build: 
+      context: ./centos/basecli
+
+  ubuntu-base:
+    image: vardan/ubuntu:base
+    build:
+      context: ./ubuntu/base
+
+  ubuntu-basecli:
+    image: vardan/ubuntu:basecli
+    build: 
+      context: ./ubuntu/basecli
+
+  ubuntu-php:
+    image: vardan/ubuntu:php
+    build:
+      context: ./ubuntu/php
+
+networks: 
+  default:
