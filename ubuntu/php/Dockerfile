@@ -6,12 +6,12 @@ ENV WORK_DIR ${PHP_DOCUMENT_ROOT:-/var/www/html}
 ENV PHP_VERSION 7.2
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_FPM php-fpm${PHP_VERSION}
-ENV PHP_EXT uuid gettext fpm intl mbstring mysql pgsql sqlite3 zip opcache xml yaml zip curl http gmagick \
+ENV PHP_EXT uuid gettext fpm intl mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http gmagick \
    xdebug redis memcache intl json cli
 
-ENV XDEBUG_PORT ${PHP_XDEBUG_PORT:-9001}
-ENV XDEBUG_HOST ${PHP_XDEBUG_HOST:-docker.host.inernal}
-ENV XDEBUG_IDEKEY ${PHP_XDEBUG_IDEKEY:-PHPSTORM}
+ENV XDEBUG_PORT ${XDEBUG_PORT:-9001}
+ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.inernal}
+ENV XDEBUG_IDEKEY ${XDEBUG_IDEKEY:-PHPSTORM}
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 RUN set -e -x -o pipefail \
@@ -47,6 +47,7 @@ RUN set -e -x -o pipefail \
    $(echo ${PHP_EXT} | awk "BEGIN {RS=\" \"} { printf \" php%s-%s\", \"$PHP_VERSION\", \$1; }") \
    ; \
    ln -s /usr/sbin/${PHP_FPM} /usr/sbin/php-fpm; \
+   mkdir -p /run/php; \
    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 
