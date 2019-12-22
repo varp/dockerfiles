@@ -14,7 +14,7 @@ USER root
 
 RUN set -ex; \
   yum -y update && yum -y install \
-  wget curl unzip p7zip p7zip-plugins bash-completion git vim-enhanced; \
+  wget curl unzip p7zip p7zip-plugins bash-completion git git-lfs vim-enhanced nmap-ncat; \
   echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
   yum -y clean all
 

@@ -13,10 +13,14 @@ RUN set -ex \
   yum -y update && \
   yum -y install epel-release; yum repolist;  \
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm; \
+  yum -y group list; yum -y --setopt=group_package_types=mandatory group install minimal; \
+  yum -y install python3 python3-pip; \
+  pip3 install --upgrade pip; \
   yum repolist; yum -y clean all
 
 
 RUN set -ex; \
+  sed -Ee 's/override_install_langs=en_US/#\0/g' /etc/yum.conf; yum -y reinstall glibc-common; \
   localedef -i ru_RU -f UTF-8 ru_RU.UTF-8; \
   echo -e "LANG=\"${DEFAULT_LANG}\"\nLC_COLLATE=\"${DEFAULT_LOCALE}\"\nLC_ALL=\"${DEFAULT_LOCALE}\"" > /etc/locale.conf; \
   echo "export LANG=\"${DEFAULT_LANG}\"" > ~/.bashrc; \
