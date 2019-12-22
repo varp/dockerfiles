@@ -5,10 +5,10 @@ LABEL maintainer="vardan.pogosyan@gmail.com" repo="vardan/ubuntu" target="dev" a
 ENV WORK_DIR /var/www/html
 ENV PHP_VERSION 7.2
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
-ENV PHP_EXT fpm intl mbstring mcrypt mysql pgsql sqlite3 zip opcache xml yaml zip curl http gmagick imagick \
+ENV PHP_EXT fpm intl mbstring mysql pgsql sqlite3 zip opcache xml yaml zip curl http gmagick \
    xdebug redis memcache
 
-RUN set -ex \
+RUN set -e -x -o pipefail \
    ; \
    export PHP_VERSION; \
    apt-get update && \
@@ -19,11 +19,13 @@ RUN set -ex \
    libmcrypt-dev \
    zlib1g-dev \
    libfreetype6-dev \
-   libjpeg62-turbo-dev \
+   libjpeg-turbo8-dev \
    libyaml-dev \
    libxml2-dev \
    libpng-dev \
-   $(echo ${PHP_EXT} | awk "BEGIN {RS=\" \"} { printf \" php%s-%s\", \"$PHP_VERSION\", '$1'; }") \
+   graphicsmagick \
+   graphicsmagick-imagemagick-compat graphicsmagick-libmagick-dev-compat \
+   $(echo ${PHP_EXT} | awk "BEGIN {RS=\" \"} { printf \" php%s-%s\", \"$PHP_VERSION\", \$1; }") \
    ; \
    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
@@ -47,4 +49,4 @@ STOPSIGNAL SIGQUIT
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+ENTRYPOINT  ["/usr/sbin/php-fpm7.2", "--allow-to-run-as-root"]
