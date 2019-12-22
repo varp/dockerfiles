@@ -17,6 +17,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN set -e -x -o pipefail \
    ; \
    export PHP_VERSION PHP_FPM; \
+   add-apt-repository ppa:ondrej/php -y; \
    apt-get update && \
    apt-get install --no-install-recommends -y \
    libicu-dev \
