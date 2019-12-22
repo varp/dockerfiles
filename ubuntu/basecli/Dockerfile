@@ -17,7 +17,9 @@ RUN set -ex; \
   console-cyrillic \
   git \
   git-lfs \
-  vim-nox; \
+  vim-nox \
+  netcat \
+  iputils-ping; \
   echo -e "set nu\nset autoindent\nset expandtab\nset ts=4\nset sts=4\nset sw=4\n" > ~/.vimrc; \
   apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 

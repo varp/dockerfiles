@@ -40,7 +40,6 @@ RUN set -ex \
   python3-pip \
   software-properties-common \
   language-pack-en \
-  language-pack-en \
   apparmor \
   bash; \
   apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*; \
