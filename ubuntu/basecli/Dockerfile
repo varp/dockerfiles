@@ -36,7 +36,6 @@ RUN set -ex; \
   cp -f /etc/skel/.bashrc /home/ubuntu/; \
   echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-USER ubuntu
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-l"]

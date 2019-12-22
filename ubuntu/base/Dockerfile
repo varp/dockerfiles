@@ -38,7 +38,6 @@ RUN set -ex \
   gettext-base \
   python3 \
   python3-pip \
-  python-software-properties \
   software-properties-common \
   language-pack-en \
   language-pack-en \

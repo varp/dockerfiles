@@ -10,6 +10,7 @@ ENV PHP_EXT fpm intl mbstring mcrypt mysql pgsql sqlite3 zip opcache xml yaml zi
 
 RUN set -ex \
    ; \
+   export PHP_VERSION; \
    apt-get update && \
    apt-get install --no-install-recommends -y \
    libicu-dev \
@@ -22,7 +23,7 @@ RUN set -ex \
    libyaml-dev \
    libxml2-dev \
    libpng-dev \
-   $(echo ${PHP_EXT} | awk 'BEGIN {RS=" "} { printf "php${PHP_VERSION}-" $1; }') \
+   $(echo ${PHP_EXT} | awk "BEGIN {RS=\" \"} { printf \" php%s-%s\", \"$PHP_VERSION\", '$1'; }") \
    ; \
    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
