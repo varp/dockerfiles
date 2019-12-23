@@ -40,7 +40,6 @@ RUN set -ex -o pipefail \
    libpng-tools \
    libtiff5 \
    libtiff-tools \
-   imagemagick \
    graphicsmagick \
    graphicsmagick-imagemagick-compat graphicsmagick-libmagick-dev-compat \
    redis-tools \
