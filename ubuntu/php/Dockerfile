@@ -1,12 +1,9 @@
 FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com" repo="vardan/ubuntu" target="dev" app="php"
 
+ARG PHP_VERSION
+ENV PHP_VERSION=${PHP_VERSION:-7.1}
 
-ARG CUSTOM_PHP_VERSION
-ENV CUSTOM_PHP_VERSION ${CUSTOM_PHP_VERSION:-7.2}
-
-
-ENV PHP_VERSION 7.2
 ENV WORK_DIR ${PHP_DOCUMENT_ROOT:-/var/www/html}
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_FPM php-fpm${PHP_VERSION}
@@ -21,7 +18,6 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Installing underlying deps for PHP extensions
 RUN set -ex -o pipefail \
    ; \
-   export CUSTOM_PHP_VERSION PHP_VERSION PHP_FPM; \
    add-apt-repository ppa:ondrej/php -y; \
    apt-get update && \
    apt-get install --no-install-recommends -y \
@@ -44,6 +40,7 @@ RUN set -ex -o pipefail \
    libpng-tools \
    libtiff5 \
    libtiff-tools \
+   imagemagick \
    graphicsmagick \
    graphicsmagick-imagemagick-compat graphicsmagick-libmagick-dev-compat \
    redis-tools \
@@ -59,22 +56,6 @@ RUN set -ex -o pipefail \
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer; \
     composer global require hirak/prestissimo -n && composer clear-cache
-
-
-# Installing custom version of the PHP
-ONBUILD RUN set -e -x -o pipefail; \
-   # if [ ! -z "$CUSTOM_PHP_VERSION" ] && [ "$CUSTOM_PHP_VERSION" != "$PHP_VERSION" ]; then \
-   echo -e "Installing CUSTOM PHP VERSION - $CUSTOM_PHP_VRESION instead of ${PHP_VERSION}\n"; \
-   apt-get update && apt-get install --no-install-recommends -y $(echo ${PHP_EXT} | awk "BEGIN {RS=\" \"} { printf \" php%s-%s\", \"$CUSTOM_PHP_VERSION\", \$1; }"); \
-   export PHP_FPM="php-fpm$CUSTOM_PHP_VERSION"; \
-   ln -svf /usr/sbin/$PHP_FPM /usr/sbin/php-fpm; \
-   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; 
-   # fi;
-
-ONBUILD ENV PHP_VERSION ${CUSTOM_PHP_VERSION:-7.2}
-ONBUILD ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
-ONBUILD ENV PHP_FPM php-fpm${PHP_VERSION}
-ONBUILD RUN update-alternatives --set php /usr/bin/php${PHP_VERSION}
 
 
 ADD conf/php.fpm.ini ${PHP_INI_DIR}/fpm/php.ini
