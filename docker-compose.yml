@@ -22,7 +22,7 @@ services:
       context: ./ubuntu/basecli
 
   ubuntu-php:
-    image: vardan/ubuntu:php-7.1
+    image: vardan/ubuntu:php
     build:
       context: ./ubuntu/php
       args:
