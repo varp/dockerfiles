@@ -15,6 +15,9 @@ ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.inernal}
 ENV XDEBUG_IDEKEY ${XDEBUG_IDEKEY:-PHPSTORM}
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+USER root
+
+
 # Installing underlying deps for PHP extensions
 RUN set -ex -o pipefail \
    ; \
@@ -36,6 +39,8 @@ RUN set -ex -o pipefail \
    libpng-dev \
    mysql-client \
    ghostscript \
+   libgs9 \
+   gsfonts \
    libpng16-16 \
    libpng-tools \
    libtiff5 \
@@ -52,11 +57,6 @@ RUN set -ex -o pipefail \
    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer; \
-    composer global require hirak/prestissimo -n && composer clear-cache
-
-
 ADD conf/php.fpm.ini ${PHP_INI_DIR}/fpm/php.ini
 ADD conf/php-fpm.conf ${PHP_INI_DIR}/fpm/php-fpm.conf
 ADD conf/21-xdebug-config.ini.template /tmp/
@@ -64,6 +64,7 @@ ADD conf/21-xdebug-config.ini.template /tmp/
 RUN set -ex; \ 
    envsubst '${XDEBUG_IDEKEY},${XDEBUG_HOST},${XDEBUG_PORT}' < /tmp/21-xdebug-config.ini.template \
     | tee ${PHP_INI_DIR}/{fpm,cli}/conf.d/21-xdebug-config.ini
+
 
 WORKDIR ${WORK_DIR}
 
@@ -73,4 +74,10 @@ STOPSIGNAL SIGQUIT
 
 EXPOSE 9000
 
-ENTRYPOINT  ["/usr/sbin/php-fpm"]
+ENTRYPOINT ["sudo", "/usr/sbin/php-fpm"]
+
+USER ubuntu
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/ubuntu/bin --filename=composer; \
+   composer global require hirak/prestissimo -n && composer clear-cache

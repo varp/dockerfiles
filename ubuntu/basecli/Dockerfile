@@ -29,15 +29,19 @@ RUN set -ex; \
   apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/*
 
 
-
 RUN set -ex; \
   update-locale LANG=${DEFAULT_LOCALE}; \
   echo -e "LANGUAGE=${DEFAULT_LOCALE}\nLANG=${DEFAULT_LOCALE}\nLC_ALL=${DEFAULT_LOCALE}\n" > /etc/default/locale \
   ; \
   useradd -m -G adm,sudo -s /bin/bash ubuntu; \
   cp -f /etc/skel/.bashrc /home/ubuntu/; \
-  echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
+  echo "ubuntu ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers; \
+  mkdir -p /home/ubuntu/bin; chown ubuntu /home/ubuntu/bin; \
+  echo 'export PATH="/home/ubuntu/bin:$PATH"' >> /home/ubuntu/.bashrc
 
+ENV PATH /home/ubuntu/bin:${PATH}
+
+USER ubuntu
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["-l"]
