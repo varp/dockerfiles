@@ -73,4 +73,4 @@ STOPSIGNAL SIGQUIT
 
 EXPOSE 9000
 
-ENTRYPOINT  ["/usr/sbin/php-fpm", "--allow-to-run-as-root"]
+ENTRYPOINT  ["/usr/sbin/php-fpm"]
