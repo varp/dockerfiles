@@ -1,14 +1,14 @@
-version: '3'
+version: "3.7"
 
-services: 
+services:
   centos-base:
     image: vardan/centos:base
-    build: 
+    build:
       context: ./centos/base
 
   centos-basecli:
     image: vardan/centos:basecli
-    build: 
+    build:
       context: ./centos/basecli
 
   ubuntu-base:
@@ -18,13 +18,36 @@ services:
 
   ubuntu-basecli:
     image: vardan/ubuntu:basecli
-    build: 
+    build:
       context: ./ubuntu/basecli
 
   ubuntu-php:
     image: vardan/ubuntu:php
     build:
       context: ./ubuntu/php
+      args:
+        - PHP_VERSION=7.1
 
-networks: 
+  ubuntu-php-72:
+    image: vardan/ubuntu:php-7.2
+    build:
+      context: ./ubuntu/php
+      args:
+        - PHP_VERSION=7.2
+
+  ubuntu-php-73:
+    image: vardan/ubuntu:php-7.3
+    build:
+      context: ./ubuntu/php
+      args:
+        - PHP_VERSION=7.3
+
+  ubuntu-php-74:
+    image: vardan/ubuntu:php-7.4
+    build:
+      context: ./ubuntu/php
+      args:
+        - PHP_VERSION=7.4
+
+networks:
   default:
