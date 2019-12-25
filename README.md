@@ -18,20 +18,30 @@ Simple dev environment with timezones enabled and vital cli utils and completion
  - vim-nox/vim-enhanced
  
  ## PHP
- Based on the **basecli** image is ready to use with LEMP stack
- - php 7.2 
-    - fpm 
-    - intl 
-    - mbstring 
-    - mcrypt 
-    - mysql 
-    - pgsql 
-    - sqlite3 
-    - zip 
-    - opcache 
-    - xml 
-    - yaml 
-    - curl 
-    - http 
-    - gmagick 
-    - imagick
+ Based on the **basecli** image is fully configured for comfortable use for developent environment.
+ 
+ - php 7.1
+   - uuid
+   - gettext
+   - fpm
+   - intl
+   - mbstring
+   - mysql
+   - gd
+   - pgsql
+   - sqlite3
+   - zip
+   - opcache
+   - xml
+   - yaml
+   - zip
+   - curl
+   - http
+   - imagick
+   - xdebug
+   - redis
+   - memcache
+   - intl
+   - json
+   - cli
+   - exif
