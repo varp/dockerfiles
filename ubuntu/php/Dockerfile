@@ -7,8 +7,8 @@ ENV PHP_VERSION=${PHP_VERSION:-7.1}
 ENV WORK_DIR ${PHP_DOCUMENT_ROOT:-/var/www/html}
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_FPM php-fpm${PHP_VERSION}
-ENV PHP_EXT uuid gettext fpm intl mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http gmagick \
-   xdebug redis memcache intl json cli
+ENV PHP_EXT uuid gettext fpm intl mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http imagick \
+   xdebug redis memcache intl json cli exif
 
 ENV XDEBUG_PORT ${XDEBUG_PORT:-9001}
 ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.inernal}
@@ -23,7 +23,7 @@ RUN set -ex -o pipefail \
    ; \
    add-apt-repository ppa:ondrej/php -y; \
    apt-get update && \
-   apt-get install --no-install-recommends -y \
+   apt-get install -y \
    libicu-dev \
    libpq-dev \
    libpq5 \
@@ -38,15 +38,13 @@ RUN set -ex -o pipefail \
    libxml2-dev \
    libpng-dev \
    mysql-client \
-   ghostscript \
-   libgs9 \
-   gsfonts \
    libpng16-16 \
    libpng-tools \
    libtiff5 \
    libtiff-tools \
-   graphicsmagick \
-   graphicsmagick-imagemagick-compat graphicsmagick-libmagick-dev-compat \
+   imagemagick \
+   gsfonts \
+   libgs9 \
    redis-tools \
    libsqlite3-0 \
    sqlite3 \
