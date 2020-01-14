@@ -11,7 +11,7 @@ ENV PHP_EXT uuid gettext fpm intl mbstring mysql gd pgsql sqlite3 zip opcache xm
    xdebug redis memcache intl json cli exif
 
 ENV XDEBUG_PORT ${XDEBUG_PORT:-9001}
-ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.inernal}
+ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.internal}
 ENV XDEBUG_IDEKEY ${XDEBUG_IDEKEY:-PHPSTORM}
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -61,7 +61,7 @@ ADD conf/21-xdebug-config.ini.template /tmp/
 
 RUN set -ex; \ 
    envsubst '${XDEBUG_IDEKEY},${XDEBUG_HOST},${XDEBUG_PORT}' < /tmp/21-xdebug-config.ini.template \
-    | tee ${PHP_INI_DIR}/{fpm,cli}/conf.d/21-xdebug-config.ini
+   | tee ${PHP_INI_DIR}/{fpm,cli}/conf.d/21-xdebug-config.ini
 
 
 WORKDIR ${WORK_DIR}
