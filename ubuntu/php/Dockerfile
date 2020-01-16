@@ -7,12 +7,16 @@ ENV PHP_VERSION=${PHP_VERSION:-7.1}
 ENV WORK_DIR ${PHP_DOCUMENT_ROOT:-/var/www/html}
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_FPM php-fpm${PHP_VERSION}
-ENV PHP_EXT uuid gettext fpm intl mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http imagick \
+ENV PHP_EXT uuid gettext fpm mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http imagick \
    xdebug redis memcache intl json cli exif
 
 ENV XDEBUG_PORT ${XDEBUG_PORT:-9001}
 ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.internal}
 ENV XDEBUG_IDEKEY ${XDEBUG_IDEKEY:-PHPSTORM}
+
+ENV PHP_IDE_CONFIG=${PHP_IDE_CONFIG:-php.xdebug.internal}
+ENV XDEBUG_CONFIG="idekey=${XDEBUG_IDEKEY}"
+
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 USER root
@@ -72,7 +76,9 @@ STOPSIGNAL SIGQUIT
 
 EXPOSE 9000
 
-ENTRYPOINT ["sudo", "/usr/sbin/php-fpm"]
+COPY docker-entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 USER ubuntu
 
