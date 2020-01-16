@@ -23,6 +23,7 @@ RUN set -ex \
   apt-transport-https \
   ca-certificates \
   ubuntu-minimal \
+  software-properties-common \
   gettext-base \
   bash; \
   apt-get clean; rm -rf /var/lib/apt/lists/* /var/cache/apt/* /tmp/* /var/tmp/* 
