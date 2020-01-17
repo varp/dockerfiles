@@ -9,7 +9,7 @@ set -e
 # DOCKER_PASSWORD=GITHUB_TOKEN
 
 [ ! -f .env ] && {
-  echo "- .env was not found. aborting"
+  echo "[-] .env was not found. aborting"
   exit 1
 }
 
@@ -35,7 +35,7 @@ NEW_TAGS=( )
 echo "+ assigning tags"
 for image in "${IMAGES[@]}"; do
   
-  NEW_TAG="${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${image/:/_/}"
+  NEW_TAG="${DOCKER_REGISTRY}/${DOCKER_REPOSITORY}/${image}"
 
   docker tag "${DEFAULT_REGISTRY}/$image" "$NEW_TAG"
 
