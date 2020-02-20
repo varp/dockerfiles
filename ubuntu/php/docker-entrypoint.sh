@@ -3,8 +3,8 @@
 set -Eeo pipefail
 
 _set_debug_host() {
-  if ! ping -c1 -q docker.for.mac.host.internal >/dev/null 2>&1; then
-    local ip=$(ping -c1 -q docker.for.mac.host.internal | tr -d '():' | awk '{print $3}')
+  if ping -c1 -q docker.for.mac.host.internal >/dev/null 2>&1; then
+    local ip=$(ping -c1 -q docker.for.mac.host.internal | head -n1 | tr -d '():' | awk '{print $3}')
   else
     local ip=$(ip route list default | awk '{print $3}')
   fi
