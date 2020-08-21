@@ -15,11 +15,11 @@ _set_debug_host() {
 
 # if first arg looks like a flag, assume we want to run postgres server
 if [ "${1:0:1}" = '-' ]; then
-  set -- sudo /usr/sbin/php-fpm "$@"
+  set -- sudo -E /usr/sbin/php-fpm "$@"
 else
   exec "$@"
 fi
 
 if [ $# -eq 0 ]; then
-  exec sudo /usr/sbin/php-fpm
+  exec sudo -E /usr/sbin/php-fpm
 fi
