@@ -2,7 +2,7 @@
 Ubuntu/CentOS based development and applications running environments.
 
 ## base
-Minimalistic base environment, based on Ubuntu/CentOS. In each version of the base distribution you will get enabled:
+Minimalist base environment, based on Ubuntu/CentOS. In each version of the base distribution you will get enabled:
   - Locales support
   - BASH as default shell interpreter
   - Full set of APT/RPM utils.
@@ -23,9 +23,9 @@ Simple dev environment with timezones enabled and vital cli utils and completion
  - vim-nox/vim-enhanced
  
  ## PHP
- Based on the **basecli** image is fully configured for comfortable use for developent environment.
+ Based on the **basecli** image is fully configured for comfortable use for development environment.
  
- - php 7.1
+ - php 7.2
    - uuid
    - gettext
    - fpm
