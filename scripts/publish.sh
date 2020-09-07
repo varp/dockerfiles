@@ -2,9 +2,19 @@
 
 set -eo pipefail
 
+while getopts "sc" opt; do
+  case "$opt" in
+    s)
+      SKIP_BUILD=1
+      ;;
+    c)
+      USE_CUSTOM_REPO=1
+      ;;
+  esac
+done
 
-SKIP_BUILD="$1"
-USE_CUSTOM_REPO="$2"
+[ "${1:-}" = "--" ] && shift
+
 
 DEFAULT_REGISTRY="vardan"
 
