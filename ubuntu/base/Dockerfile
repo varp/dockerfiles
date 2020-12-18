@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20200403
+FROM ubuntu:focal-20201106
 LABEL maintainer="vardan.pogosyan@gmail.com"
 LABEL repo="vardan/ubuntu" tag="base" target="dev"
 
