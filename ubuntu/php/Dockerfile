@@ -2,13 +2,13 @@ FROM vardan/ubuntu:basecli
 LABEL maintainer="vardan.pogosyan@gmail.com" repo="vardan/ubuntu" target="dev" app="php"
 
 ARG PHP_VERSION
-ENV PHP_VERSION=${PHP_VERSION:-7.1}
+ENV PHP_VERSION=${PHP_VERSION:-7.2}
 
 ENV WORK_DIR ${PHP_DOCUMENT_ROOT:-/var/www/html}
 ENV PHP_INI_DIR /etc/php/${PHP_VERSION}
 ENV PHP_FPM php-fpm${PHP_VERSION}
-ENV PHP_EXT uuid gettext fpm mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl http imagick \
-   xdebug redis memcache intl json cli exif
+ENV PHP_EXT uuid gettext fpm mbstring mysql gd pgsql sqlite3 zip opcache xml yaml zip curl \
+   xdebug redis memcache intl json cli exif mailparse xmlrpc propro raphf http imagick
 
 ENV XDEBUG_PORT ${XDEBUG_PORT:-9001}
 ENV XDEBUG_HOST ${XDEBUG_HOST:-docker.host.internal}
@@ -83,5 +83,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 USER ubuntu
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/ubuntu/bin --filename=composer; \
-   composer global require hirak/prestissimo -n && composer clear-cache
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/home/ubuntu/bin --filename=composer

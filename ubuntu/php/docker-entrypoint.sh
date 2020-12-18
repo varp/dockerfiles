@@ -11,9 +11,13 @@ _set_debug_host() {
   echo "$ip docker.host.internal" | sudo tee -a /etc/hosts
 }
 
+# trap 'echo "Terminationg container!!!"; kill -9 $!' SIGKILL
+# trap 'echo "Interrupting container..."; kill -2 $!' SIGINT
+
+
 [[ -z "$(grep 'docker.host.internal' /etc/hosts)" ]] && _set_debug_host
 
-# if first arg looks like a flag, assume we want to run postgres server
+# if first arg looks like a flag, assume we want to run php-fpm server
 if [ "${1:0:1}" = '-' ]; then
   set -- sudo -E /usr/sbin/php-fpm "$@"
 else

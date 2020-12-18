@@ -42,5 +42,12 @@ services:
       args:
         - PHP_VERSION=7.4
 
+  # ubuntu-php-80:
+  #   image: vardan/ubuntu:php-8.0
+  #   build:
+  #     context: ./ubuntu/php
+  #     args:
+  #       - PHP_VERSION=8.0
+
 networks:
   default:
