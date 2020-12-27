@@ -16,6 +16,7 @@ ENV XDEBUG_IDEKEY ${XDEBUG_IDEKEY:-PHPSTORM}
 
 ENV PHP_IDE_CONFIG ${PHP_IDE_CONFIG:-serverName=php.xdebug.internal}
 ENV XDEBUG_CONFIG client_host=${XDEBUG_HOST} client_port=${XDEBUG_PORT} idekey=${XDEBUG_IDEKEY}
+ENV XDEBUG_MODE develop,coverage,debug
 ## uncomment the following line to permanently enable auto-start 
 ## of debug session for every PHP CLI session calls
 # ENV XDEBUG_SESSION 1
