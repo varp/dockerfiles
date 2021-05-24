@@ -2,11 +2,11 @@ version: "3.7"
 
 services:
   web:
-    image: nginx
+    image: nginx:1.20
     depends_on:
       - php
     volumes:
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./default.conf.template:/etc/nginx/templates/default.conf.template
       - ./index.php:/var/www/html/index.php
       - ./test.php:/var/www/html/test.php
     ports:
@@ -16,7 +16,9 @@ services:
       - NGINX_PORT=80
 
   php:
-    image: vardan/ubuntu:php-7.2
+    image: vardan/ubuntu:php-7.4
+    environment: 
+      - DOCKER_HOST_IP=192.168.65.1
     volumes:
       - ./index.php:/var/www/html/index.php
       - ./test.php:/var/www/html/test.php
